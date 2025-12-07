@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: reviews-service
+    runtime: java
+    plan: free
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/reviews-service-1.0.0.jar
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://ep-patient-credit-adceyqvj-pooler.c-2.us-east-1.aws.neon.tech:5432/neondb?sslmode=require
+      - key: SPRING_DATASOURCE_USERNAME
+        value: neondb_owner
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: npg_GduJi8PA2vTb
+      - key: PORT
+        value: "8083"
+      - key: JWT_SECRET
+        value: mySecretKeyForJWTTokenGenerationThatIsAtLeast256BitsLong
+      - key: EUREKA_CLIENT_ENABLED
+        value: "false"
+    routes:
+      - path: /
+        matchType: prefix
