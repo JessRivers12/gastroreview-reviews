@@ -2,8 +2,6 @@
 FROM maven:3.9.5-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY pom.xml .
-COPY .mvn .mvn
-COPY mvnw .
 COPY src ./src
 RUN mvn clean package -DskipTests -q
 
