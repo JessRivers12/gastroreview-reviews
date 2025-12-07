@@ -8,10 +8,10 @@ COPY src ./src
 RUN mvn clean package -DskipTests -q
 
 # Run stage
-FROM eclipse-temurin:21-jre-slim
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/target/reviews-service-1.0.0.jar app.jar
-EXPOSE ${PORT:-8083}
+EXPOSE 8083
 ENV SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
 ENV SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
 ENV SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
