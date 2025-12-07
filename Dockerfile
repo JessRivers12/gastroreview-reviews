@@ -11,11 +11,8 @@ WORKDIR /app
 COPY --from=build /app/target/reviews-service-1.0.0.jar app.jar
 EXPOSE 10000
 
-# Set default environment variables
-ENV PORT=10000
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/reviews
-ENV SPRING_DATASOURCE_USERNAME=postgres
-ENV SPRING_DATASOURCE_PASSWORD=postgres
-ENV JWT_SECRET=mySecretKeyForJWTTokenGenerationThatIsAtLeast256BitsLong
-
-CMD ["java", "-jar", "app.jar", "--server.port=${PORT}"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["--server.port=10000", \
+     "--spring.datasource.url=${SPRING_DATASOURCE_URL:-jdbc:postgresql://localhost:5432/reviews}", \
+     "--spring.datasource.username=${SPRING_DATASOURCE_USERNAME:-postgres}", \
+     "--spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:-postgres}"]
